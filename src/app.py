@@ -25,7 +25,7 @@ def connect():
 # Run student-defined queries from queries.sql
 def run_queries_from_file(engine, filepath):
     try:
-        with open(filepath, 'r') as file:
+        with open(filepath, 'r', encoding='utf-8') as file:
             content = file.read()
         queries = [q.strip() for q in content.split(';') if q.strip()]
         for i, query in enumerate(queries, start=0):

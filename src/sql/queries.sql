@@ -1,52 +1,44 @@
--- PLEASE READ THIS BEFORE RUNNING THE EXERCISE
 
--- ⚠️ IMPORTANT: This SQL file may crash due to two common issues: comments and missing semicolons.
-
--- ✅ Suggestions:
--- 1) Always end each SQL query with a semicolon `;`
--- 2) Ensure comments are well-formed:
---    - Use `--` for single-line comments only
---    - Avoid inline comments after queries
---    - Do not use `/* */` multi-line comments, as they may break execution
-
--- -----------------------------------------------
--- queries.sql
--- Complete each mission by writing your SQL query
--- directly below the corresponding instruction
--- -----------------------------------------------
 
 SELECT * FROM regions;
 SELECT * FROM species;
 SELECT * FROM climate;
 SELECT * FROM observations;
 
+select * from observations limit 10;
 
--- MISSION 1
--- Your query here;
+select DISTINCT id from regions;
 
--- MISSION 2
--- Your query here;
+select COUNT (DISTINCT  id) from species;
 
+select  count(region_id) from observations where region_id == 2;
 
--- MISSION 3
--- Your query here;
-
-
--- MISSION 4
--- Your query here;
+select   count(observation_date) from observations where observation_date = '1998-08-08';
 
 
--- MISSION 5
--- Your query here;
 
 
--- MISSION 6
--- Your query here;
+
+select region_id,count(*) as observaciones from observations group by region_id order by observaciones desc ;
+
+select species_id,count(*) as especies from observations group by species_id order by especies desc limit 5 ;
+
+select species_id,count(*) as especies from observations group by species_id having especies < 5 order by especies desc;
+
+select observer ,count(*) as observaciones from observations group by observer order by observaciones desc ;
 
 
--- MISSION 7
--- Your query here;
 
 
--- MISSION 8
--- Your query here;
+SELECT observations.id, regions.name AS nombre_region, observations.observation_date from observations JOIN regions ON observations.region_id = regions.id;
+
+SELECT species.id, species.scientific_name AS nombre_especie from observations JOIN species ON observations.species_id = species.id;
+
+select regions.name as region,species.scientific_name,count (*) as total from observations join species on observations.species_id = species.id join regions on observations.region_id = regions.id group by region,species.scientific_name order by region,total desc;
+
+
+INSERT INTO observations (species_id,region_id,observer,observation_date,count) values (6 , 3, 'tecnico de sistemas','2027-04-05',5);
+
+UPDATE species set scientific_name = 'Enicognathus ferrugineuss' where scientific_name = 'Enicognathus ferrugineus';
+
+delete from observations where id = 543;
